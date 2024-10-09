@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eCommerce Frontend with Sidebar</title>
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+
+    nav {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      position: relative;
+    }
+
+    .menu-icon {
+      cursor: pointer;
+      font-size: 24px;
+      color: white;
+      display: inline-block;
+    }
+
+    .menu-icon span {
+      background-color: white;
+      display: block;
+      height: 3px;
+      width: 25px;
+      margin: 5px 0;
+    }
+
+   
+    .sidebar {
+      position: fixed;
+      left: -250px;
+      top: 0;
+      width: 250px;
+      height: 100%;
+      background-color: #333;
+      color: white;
+      transition: 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 20px;
+    }
+
+    .sidebar ul li {
+      padding: 20px;
+      border-bottom: 1px solid #555;
+    }
+
+    .sidebar ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .sidebar ul li:hover {
+      background-color: #555;
+    }
+
+   
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+   
+    header {
+      text-align: center;
+      background-color: #f4f4f4;
+      padding: 50px 0;
+    }
+
+    header h1 {
+      color: #333;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2em;
+      color: #666;
+    }
+
+ 
+    .products-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .product-card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #fff;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: auto;
+    }
+
+    .product-details {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .product-details h3 {
+      font-size: 1.5em;
+      margin: 10px 0;
+    }
+
+    .product-details p {
+      color: #888;
+      margin-bottom: 15px;
+    }
+
+    .product-details .price {
+      font-size: 1.2em;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .product-details button {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .product-details button:hover {
+      background-color: #555;
+    }
+
+  
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  
+  <nav>
+    <div class="menu-icon" onclick="toggleSidebar()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Shop</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </div>
+
+
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+
+  <header>
+    <h1>Welcome to Our Store</h1>
+    <p>Find the best products at unbeatable prices</p>
+  </header>
+
+
+  <div class="products-container">
+  
+    <div class="product-card">
+      <img src="https://img.freepik.com/premium-psd/luxury-watch-isolated-transparent-background_682379-928.jpg?size=626&ext=jpg" alt="Product 1">
+      <div class="product-details">
+        <h3>Product 1</h3>
+        <p>Product1 Description</p>
+        <div class="price">$29.99</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+  
+    <div class="product-card">
+      <img src="https://img.freepik.com/premium-psd/luxury-golden-silver-smart-watch-isolated-transparent-background_1206751-2105.jpg?size=626&ext=jpg" alt="Product 2">
+      <div class="product-details">
+        <h3>Product 2</h3>
+        <p>Product2 Description</p>
+        <div class="price">$39.99</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+ 
+    <div class="product-card">
+      <img src="https://img.freepik.com/free-vector/smart-watch-realistic-image-black_1284-11873.jpg?size=626&ext=jpg" alt="Product 3">
+      <div class="product-details">
+        <h3>Product 3</h3>
+        <p>Product3 Description</p>
+        <div class="price">$49.99</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+
+  
+    <div class="product-card">
+      <img src="https://img.freepik.com/free-photo/elegant-watch-with-silver-golden-chain-isolated_181624-27080.jpg?size=626&ext=jpg" alt="Product 4">
+      <div class="product-details">
+        <h3>Product 4</h3>
+        <p>Product 4 Description</p>
+        <div class="price">$59.99</div>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+
+  <footer>
+    <p>© 2024 Your Store. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
